@@ -46,6 +46,12 @@ const plugins = [
   // Uncomment to add Stripe support.
   // You can create a Stripe account via: https://stripe.com
   {
+    resolve: `medusa-hosted-checkout`,
+    options: {
+      checkout_url: process.env.CHECKOUT_URL || "http://localhost:6000"
+    }
+  },
+  {
     resolve: `medusa-payment-stripe`,
     options: {
       api_key: STRIPE_API_KEY,
@@ -66,12 +72,9 @@ const plugins = [
 
 module.exports = {
   projectConfig: {
-    // redis_url: REDIS_URL,
-    // For more production-like environment install PostgresQL
-    // database_url: DATABASE_URL,
-    // database_type: "postgres",
-    database_database: "./medusa-db.sql",
-    database_type: "sqlite",
+    redis_url: REDIS_URL,
+    database_url: DATABASE_URL,
+    database_type: "postgres",
     store_cors: STORE_CORS,
     admin_cors: ADMIN_CORS,
   },
