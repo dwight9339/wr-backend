@@ -1,9 +1,8 @@
 import axios from "axios";
-import { FulfillmentOption } from "@medusajs/medusa";
 import { FulfillmentService } from "medusa-interfaces";
 
 class ShippoFulfillmentService extends FulfillmentService {
-  static identifier = "Shippo"
+  static identifier = "shippo"
 
   async getFulfillmentOptions() {
     return [
