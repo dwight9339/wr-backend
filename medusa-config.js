@@ -43,14 +43,6 @@ const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET || "";
 const plugins = [
   `medusa-fulfillment-manual`,
   `medusa-payment-manual`,
-  // Uncomment to add Stripe support.
-  // You can create a Stripe account via: https://stripe.com
-  {
-    resolve: `medusa-hosted-checkout`,
-    options: {
-      checkout_url: process.env.CHECKOUT_URL || "http://localhost:6000"
-    }
-  },
   {
     resolve: `medusa-payment-stripe`,
     options: {
