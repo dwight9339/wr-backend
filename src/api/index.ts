@@ -1,13 +1,20 @@
 import { Router } from "express";
 import { CustomerService, Customer } from "@medusajs/medusa";
 import { FindConfig } from "@medusajs/medusa/dist/types/common";
+import cors from "cors";
+import { projectConfig } from "../../medusa-config";
 
 const anonymousCustomerEmail = "anonymous.customer@fakedomain.com";
 
 export default () => {
   const router = Router();
-
-  router.get("/store/customers/anonymous", (req, res) => {
+  const corsOptions = {
+    origin: projectConfig.store_cors.split(","),
+    credentials: true
+  };
+  
+  router.options("/store/customers/anonymous", cors(corsOptions));
+  router.get("/store/customers/anonymous", cors(corsOptions), (req, res) => {
     const customerService: CustomerService = req.scope.resolve("customerService");
     customerService.retrieveByEmail(anonymousCustomerEmail).then((customer) => {
       res.status(200).json({customer});
