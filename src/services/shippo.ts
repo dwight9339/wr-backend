@@ -29,13 +29,20 @@ class ShippoFulfillmentService extends FulfillmentService {
   }
 
   async createFulfillment(data: any, items: any, order: any, fulfillment: any) {
-    await axios.post("https://api.goshippo.com/transactions", {
-      rate: data.rate.object_id,
-    }, {
-      headers: {
-        "Authorization": `ShippoToken ${process.env.SHIPPO_API_KEY}`
-      }
-    });
+    try {
+      const { data: axiosData } = await axios.post("https://api.goshippo.com/transactions", {
+        rate: data.rate.object_id,
+      }, {
+        headers: {
+          "Authorization": `ShippoToken ${process.env.SHIPPO_API_KEY}`
+        }
+      });
+
+      return axiosData;
+    } catch(err) {
+      console.error(err);
+      return { error: JSON.stringify(err) };
+    }
   }
 }
 
