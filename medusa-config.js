@@ -43,13 +43,13 @@ const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET || "";
 const plugins = [
   `medusa-fulfillment-manual`,
   `medusa-payment-manual`,
-  {
-    resolve: `medusa-payment-stripe`,
-    options: {
-      api_key: STRIPE_API_KEY,
-      webhook_secret: STRIPE_WEBHOOK_SECRET,
-    },
-  },
+  // {
+  //   resolve: `medusa-payment-stripe`,
+  //   options: {
+  //     api_key: STRIPE_API_KEY,
+  //     webhook_secret: STRIPE_WEBHOOK_SECRET,
+  //   },
+  // },
   {
     resolve: `medusa-file-s3`,
     options: {
