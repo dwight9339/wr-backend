@@ -4,7 +4,6 @@ import cors from "cors";
 import { projectConfig } from "../../medusa-config";
 import { Stripe } from "stripe";
 import { CartService, OrderService } from "@medusajs/medusa/dist/services";
-import { PaymentService } from "medusa-interfaces";
 
 const anonymousCustomerEmail = "anonymous.customer@fakedomain.com";
 const stripe = new Stripe(process.env.STRIPE_API_KEY, undefined);
@@ -47,20 +46,20 @@ export default () => {
 
     try {
       const { data } = stripe.webhooks.constructEvent(req.body, signature, webhookSecret);
-      const cartId = data.object.client_reference_id;
-      const cartService: CartService = req.scope.resolve("cartService");
-      const orderService: OrderService = req.scope.resolve("orderService");
+      // const cartId = data.object.client_reference_id;
+      // const cartService: CartService = req.scope.resolve("cartService");
+      // const orderService: OrderService = req.scope.resolve("orderService");
 
-      cartService.updatePaymentSession(cartId, {...data}).then(() => {
-        cartService.authorizePayment(cartId).then((cart) => {
-          console.log(`Authorized cart: ${JSON.stringify(cart)}`);
-          orderService.createFromCart(cartId);
-        })
-      }, (reason) => {
-        throw reason;
-      })
+      // cartService.updatePaymentSession(cartId, {...data}).then(() => {
+      //   cartService.authorizePayment(cartId).then((cart) => {
+      //     console.log(`Authorized cart: ${JSON.stringify(cart)}`);
+      //     orderService.createFromCart(cartId);
+      //   })
+      // }, (reason) => {
+      //   throw reason;
+      // })
 
-      res.status(200).send();
+      // res.status(200).send();
     } catch(err) {
       console.error(err);
       res.status(err.status || 500).send(err);
