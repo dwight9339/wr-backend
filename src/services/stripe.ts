@@ -148,7 +148,7 @@ class StripeService extends AbstractPaymentService<TransactionBaseService> {
       }
     } catch(err) {
       return {
-        status: PaymentSessionStatus.PENDING,
+        status: PaymentSessionStatus.ERROR,
         data: {
           message: "Unable to retrieve checkout session",
           error: err,
